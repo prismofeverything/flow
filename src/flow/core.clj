@@ -67,7 +67,7 @@
    (kafka/json-deserializer)))
 
 (defn handle-message
-  [state bus record]
+  [state bus handle record]
   (try
     (if (= (first record) :by-topic)
       (let [topics (last record)]
@@ -75,10 +75,12 @@
           (doseq [message messages]
             (log/info topic ":" message)
             (let [value {topic (:value message)}]
+              (handle topic (:value message))
               (swap! state assoc :last-message value)
               (bus/publish! bus topic (json/generate-string value)))))))
     (catch Exception e
-      (log/error (.getMessage e)))))
+      (log/error (.getMessage e))
+      (.printStackTrace e))))
 
 (defn consume
   [consumer handle]
@@ -97,13 +99,18 @@
   [state config]
   (let [bus (bus/event-bus)
         producer (boot-producer config)
-        consumer (boot-consumer config)]
+        consumer (boot-consumer config)
+        handle (get config :handle-message (fn [_ _]))]
     (doseq [topic (:topics config)]
       (log/info "subscribing to topic" topic)
       (kafka/subscribe! consumer topic))
     {:bus bus
      :producer producer
-     :consumer (defer/future (consume consumer (partial handle-message state bus)))}))
+     :consumer
+     (defer/future
+       (consume
+        consumer
+        (partial handle-message state bus handle)))}))
 
 (defn default-handle-client
   [state conn message]
