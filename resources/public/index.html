@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FLow</title>
+    <meta name="description" content="distributed whole cell agent based simulation">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">    
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <link rel="stylesheet" href="css/flow.css">
+    <script src="js/lib/snap.js"></script>
+    <script src="js/lib/underscore.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/color.js"></script>
+    <script src="js/flow.js"></script>
+    
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+  </head>
+
+  <body onload="flow = bootFlow()">
+
+    <header id="title">
+      <div>
+        <h1><a href="#">Flow</a></h1>
+      </div>
+      <div id="subtitle">
+        kafka <=> websockets
+      </div>
+    </header>
+
+    <div id="flow-container" class="column visualization">
+      <svg id="flow" width="1100" height="1000">
+      </svg>
+    </div>
+
+    <div id="control" class="column control">
+      <!-- <select id="options"> -->
+      <!-- </select> -->
+
+      <!-- <button id="trigger" type="button">trigger</button> -->
+    </div>
+  </body>
+</html>
