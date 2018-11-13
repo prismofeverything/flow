@@ -177,8 +177,8 @@
    ["/ws" :websocket (#'websocket-handler state)]])
 
 (defn start
-  [config]
-  (let [state (boot config)
+  [state]
+  (let [config (:config state)
         make-routes (get config :routes (fn [_] []))
         flow-routes (make-flow-routes state)
         other-routes (make-routes state)
@@ -192,7 +192,8 @@
 
 (defn -main
   [& args]
-  (let [config (read-config "config/config.clj")]
+  (let [config (read-config "config/config.clj")
+        state (boot config)]
     (log/info config)
     (log/info "flow started on port" (:port config))
-    (start config)))
+    (start state)))
