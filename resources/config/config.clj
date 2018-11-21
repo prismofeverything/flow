@@ -2,5 +2,6 @@
  :kafka
  {:host "localhost:9092"
   :group-id "flow"
-  :event-topic "flow-events"
-  :topics ["flow-events"]}}
+  :send "flow-events"
+  :subscribe ["flow-events"]
+  :topics {:flow-events "flow-events"}}}
