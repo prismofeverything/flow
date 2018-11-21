@@ -1,4 +1,4 @@
-(defproject orb/flow "0.0.2"
+(defproject orb/flow "0.0.3"
   :description "kafka <=> websockets"
   :url "http://github.com/prismofeverything/flow"
   :license {:name "Eclipse Public License"
